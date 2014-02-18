@@ -1,0 +1,5 @@
+Creating an External Table on a Folder containing Text Files which has data (category Id, categoryName):
+
+CREATE EXTERNAL TABLE retail_demo.testing(    category_id integer,    category_name character varying(400))
+LOCATION ('pxf://pivhdsne:50070/testing/1.txt?Fragmenter=HdfsDataFragmenter&Accessor=TextFileAccessor&Resolver=TextResolver')
+FORMAT 'TEXT' (DELIMITER = E'\t');
