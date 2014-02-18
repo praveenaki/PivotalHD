@@ -1,5 +1,19 @@
-Creating an External Table on a Folder containing Text Files which has data (category Id, categoryName):
+PXF - Pivotal Extension Framework
+HAWQ - Pivotal Advanced Database Services
 
-CREATE EXTERNAL TABLE retail_demo.testing(    category_id integer,    category_name character varying(400))
+Creating an External Table on a Folder containing Text Files which has data (category Id, category Name):
+
+CREATE EXTERNAL TABLE retail_demo.testing(   
+ category_id integer,  category_name character varying(400))
 LOCATION ('pxf://pivhdsne:50070/testing/1.txt?Fragmenter=HdfsDataFragmenter&Accessor=TextFileAccessor&Resolver=TextResolver')
 FORMAT 'TEXT' (DELIMITER = E'\t');
+
+Creating an External Table on a Folder containing JSON Files which has data (created at, id, text, user.id, user.screen_name):
+
+CREATE EXTERNAL TABLE ext_tweets_json (
+created_at TEXT, id BIGINT, text TEXT, "user.id" BIGINT,
+"user.screen_name" TEXT)
+LOCATION ('pxf://phd2:50070/data/twitter-clean/*/*/*/*/*.json?FRAGMENTER=
+HdfsDataFragmenter&ACCESSOR=JsonAccessor&RESOLVER=JsonResolver&ANALYZER=HdfsAnalyzer')
+FORMAT 'CUSTOM' (FORMATTER='pxfwritable_import');
+
